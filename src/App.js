@@ -9,7 +9,7 @@ export default function App(){
 
     return (
         <div className='App'>
-            <Header title='Jeopardy'/>
+            <Header title='Welcome to Jeopardy!'/>
             <Scoreboard data={data}/>
             <Questions data={data} setData={setData}/>
         </div>

@@ -16,14 +16,22 @@ export default function Questions({data, setData}){
 
     const loaded = () => {
         return (
-            <div>
-                <h1>Let's Play!</h1>
-                <Button text='Get Question' onClick={setBtn} />
-                <h2>Category: {data[0].category.title}</h2>
-                <h3>Points: {data[0].value}</h3>
-
-                <h2>Answer: {data[0].question}</h2>
-                <Button text={hidden ? 'Click to Reveal Answer' : data[0].answer} onClick={(evt) => {
+            <div className="questions">
+                <h1 className="headers">Let's Play!</h1>
+                <Button classNames={["questionBtn","btn"]} text='Get Question' onClick={setBtn} />
+                <div className='wrapper'>
+                    <h2 className="headers">Category: </h2>
+                    <p>{data[0].category.title}</p>
+                </div>
+                <div className='wrapper'>
+                    <h3 className="headers">Points: </h3>
+                    <p>{data[0].value}</p>
+                </div>
+                <div className='wrapper'>
+                    <h2 className="headers">Answer:</h2>
+                    <p className='question'>{data[0].question}</p>
+                </div>
+                <Button classNames={["reveal","btn"]} text={hidden ? 'Click to Reveal Answer' : data[0].answer} onClick={(evt) => {
                     setHidden(!hidden);
                 }}/>
             </div>
