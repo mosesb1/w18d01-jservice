@@ -5,7 +5,7 @@ export default function Questions({data, setData}){
     const [buttonPressed, setButtonPressed] = useState(false);
     const [hidden, setHidden] = useState(true);
 
-    const url = 'http://jservice.io/api/random';
+    const url = 'https://jservice.io/api/random';
 
     const getData = async () => {
         const response = await fetch(url);
