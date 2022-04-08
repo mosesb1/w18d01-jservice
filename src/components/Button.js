@@ -1,3 +1,3 @@
-export default function Button(props) {
-    return <button className={props.classNames.join(' ')}onClick={props.onClick}>{props.text}</button>
+export default function Button({classNames, onClick, text}) {
+    return <button className={classNames.join(' ')}onClick={onClick}>{text}</button>
 }

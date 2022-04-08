@@ -1,39 +1,80 @@
 import {useState, useEffect} from 'react';
 import Button from './Button';
+import Buttons from './Buttons';
 
-export default function Questions({data, setData}){
-    const [buttonPressed, setButtonPressed] = useState(false);
-    const [hidden, setHidden] = useState(true);
+export default function Questions({singleData, setSingleData, multipleData, setMultipleData}){
+    const [singleButtonPressed, setSingleButtonPressed] = useState(false);
+    const [multipleButtonPressed, setMultipleButtonPressed] = useState(false);
+    const [showArray, setShowArray] = useState([true,true,true,true,true,true,true,true,true,true,true])
+    let buttons = [];
 
-    const url = 'https://jservice.io/api/random';
+    const randomUrlSingle = 'https://jservice.io/api/random';
+    const randomUrlMultiple = 'https://jservice.io/api/random?count=10';
 
-    const getData = async () => {
-        const response = await fetch(url);
+    const getDataSingle = async () => {
+        const response = await fetch(randomUrlSingle);
         const apiData = await response.json();
-        setData(apiData);
-        setHidden(true);
+        setSingleData(apiData);
+        hideFirstButton();
     }
 
+    const getDataMultiple = async () => {
+        const response = await fetch(randomUrlMultiple);
+        const apiData = await response.json();
+        setMultipleData(apiData);
+        hideRestButtons();
+    }
+    
+    const setBtn = () => {
+        setSingleButtonPressed(!singleButtonPressed);
+    }
+
+    const setMultipleBtn = () => {
+        setMultipleButtonPressed(!multipleButtonPressed);
+    }
+
+    const hideFirstButton = () => {
+        setShowArray(showArray.map((value,idx) => {
+            return (
+                idx === 0 ? true : value
+            )
+        }))
+    }
+
+    const hideRestButtons = () => {
+        setShowArray(showArray.map((value,idx) => {
+            return (
+                idx !== 0 ? true : value
+            )
+        }))
+    }
+    
     const loaded = () => {
         return (
             <div className="questions">
                 <h1 className="headers">Let's Play!</h1>
                 <Button classNames={["questionBtn","btn"]} text='Get Question' onClick={setBtn} />
+                <Button classNames={["questionBtn","btn"]} text='Get 10 Questions' onClick={setMultipleBtn}/>
                 <div className='wrapper'>
                     <h2 className="headers">Category: </h2>
-                    <p>{data[0].category.title}</p>
+                    <p>{singleData[0].category.title}</p>
                 </div>
                 <div className='wrapper'>
                     <h3 className="headers">Points: </h3>
-                    <p>{data[0].value}</p>
+                    <p>{singleData[0].value}</p>
                 </div>
                 <div className='wrapper'>
-                    <h2 className="headers">Answer:</h2>
-                    <p className='question'>{data[0].question}</p>
+                    <h2 className="headers">Question:</h2>
+                    <p className='question'>{singleData[0].question}</p>
                 </div>
-                <Button classNames={["reveal","btn"]} text={hidden ? 'Click to Reveal Answer' : data[0].answer} onClick={(evt) => {
-                    setHidden(!hidden);
+                <Button classNames={["reveal","btn"]} text={showArray[0] ? 'Click to Reveal Answer' : singleData[0].answer} onClick={(evt) => {
+                    setShowArray(showArray.map((value, idx) => {
+                        return(
+                            idx === 0 ? !value : value
+                        )
+                    }))
                 }}/>
+                <Buttons classNames={["reveal","btn"]} multipleData={multipleData} showArray={showArray} setShowArray={setShowArray} />
             </div>
         )
     }
@@ -44,15 +85,20 @@ export default function Questions({data, setData}){
         )
     }
 
-    const setBtn = () => {
-        setButtonPressed(!buttonPressed);
-    }
+    useEffect(() => {
+        getDataSingle();
+    },[singleButtonPressed])
+
+    // useEffect(() => {
+    //     getDataMultiple();
+    // }, [])
 
     useEffect(() => {
-        getData();
-    },[buttonPressed])
+        getDataMultiple();
+    },[multipleButtonPressed])
+
     
     return (
-        data ? loaded() : loading()
+        singleData ? loaded() : loading()
     )
 }

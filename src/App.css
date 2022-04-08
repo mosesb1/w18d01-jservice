@@ -73,5 +73,21 @@ p {
     color: white;
     width: 40%;
     height: 5vh;
-    font-size: 1.5em;
+    font-size: 1em;
+}
+
+button {
+    width: fit-content;
+}
+
+.multipleBtns {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+
+.multipleBtns > button {
+    width: 200px;
+    height: 150px;
+    font-size: 1em;
 }

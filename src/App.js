@@ -5,13 +5,17 @@ import Questions from './components/Questions';
 import {useState} from 'react';
 
 export default function App(){
-    const [data, setData] = useState(null)
+    const [singleData, setSingleData] = useState(null)
+    const [multipleData, setMultipleData] = useState(null)
 
     return (
         <div className='App'>
             <Header title='Welcome to Jeopardy!'/>
-            <Scoreboard data={data}/>
-            <Questions data={data} setData={setData}/>
+            <Scoreboard singleData={singleData} multipleData={multipleData}/>
+            <Questions 
+                singleData={singleData} setSingleData={setSingleData} 
+                multipleData={multipleData} setMultipleData={setMultipleData}
+            />
         </div>
     )
 }
