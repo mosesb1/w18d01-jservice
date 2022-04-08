@@ -2,11 +2,9 @@ import {useState, useEffect} from 'react';
 import Button from './Button';
 import Buttons from './Buttons';
 
-export default function Questions({singleData, setSingleData, multipleData, setMultipleData, categoryData, setCategoryData}){
+export default function Questions({singleData, setSingleData, multipleData, setMultipleData, categoryData, setCategoryData, lastButtonPressed, setLastButtonPressed, randomIdx, setRandomIdx}){
     const [singleButtonPressed, setSingleButtonPressed] = useState(false);
     const [multipleButtonPressed, setMultipleButtonPressed] = useState(false);
-    const [lastButtonPressed, setLastButtonPressed] = useState('random');
-    const [randomIdx, setRandomIdx] = useState(0);
     const [showArray, setShowArray] = useState([true,true,true,true,true,true,true,true,true,true,true])
 
     const randomUrlSingle = 'https://jservice.io/api/random';
