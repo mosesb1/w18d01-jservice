@@ -87,7 +87,8 @@ button {
 }
 
 .multipleBtns > button {
-    width: 200px;
-    min-height: 200px;
+    width: 250px;
+    min-height: 250px;
     font-size: 1em;
+    word-wrap: break-word;
 }
