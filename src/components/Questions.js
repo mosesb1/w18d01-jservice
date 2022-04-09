@@ -55,6 +55,7 @@ export default function Questions({singleData, setSingleData, multipleData, setM
     const handleCategoryClick = () => {
         getRandomIdx();
         setLastButtonPressed('category');
+        hideFirstButton();
     }
 
     const hideFirstButton = () => {
